@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://oevdyh4tcn72"]
+
+[ext_resource type="Script" uid="uid://c6vr32ea105bb" path="res://Scripts/rat_ally.gd" id="1_q5x1f"]
+[ext_resource type="Shader" uid="uid://c01wk2vrk00nt" path="res://Scripts/jitter_free_pixel_art.gdshader" id="2_plt7x"]
+[ext_resource type="Texture2D" uid="uid://q17kxu1wfht1" path="res://Sprites/RatV2-Sheet.png" id="3_plt7x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rax23"]
+shader = ExtResource("2_plt7x")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rax23"]
+atlas = ExtResource("3_plt7x")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3b1i"]
+atlas = ExtResource("3_plt7x")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bnok"]
+atlas = ExtResource("3_plt7x")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7x74"]
+atlas = ExtResource("3_plt7x")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5inu"]
+atlas = ExtResource("3_plt7x")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e7x74"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rax23")
+}],
+"loop": 1,
+"name": &"rat_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_w3b1i")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_1bnok")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_e7x74")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_r5inu")
+}],
+"loop": 1,
+"name": &"rat_walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_plt7x"]
+radius = 13.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rax23"]
+radius = 5.0
+height = 26.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rax23"]
+radius = 22.505554
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w3b1i"]
+radius = 35.0
+
+[node name="rat_ally" type="CharacterBody2D" unique_id=1529855859 groups=["rodent"]]
+scale = Vector2(2, 2)
+collision_layer = 4
+script = ExtResource("1_q5x1f")
+
+[node name="RatSprite" type="AnimatedSprite2D" parent="." unique_id=835444931]
+material = SubResource("ShaderMaterial_rax23")
+position = Vector2(0, -15)
+sprite_frames = SubResource("SpriteFrames_e7x74")
+animation = &"rat_walk"
+
+[node name="RatCollection" type="Area2D" parent="." unique_id=903137602 groups=["rodent_collection"]]
+collision_layer = 4
+collision_mask = 8
+
+[node name="RatHitboxCollision" type="CollisionShape2D" parent="RatCollection" unique_id=1086057705]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_plt7x")
+debug_color = Color(0.7921569, 0.6117647, 0, 0.41960785)
+
+[node name="RatHitbox" type="CollisionShape2D" parent="." unique_id=2122256479]
+position = Vector2(0, -5)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_rax23")
+
+[node name="WanderTimer" type="Timer" parent="." unique_id=1078348073]
+one_shot = true
+autostart = true
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=1937981373]
+
+[node name="AttackZone" type="Area2D" parent="." unique_id=955396859]
+collision_layer = 0
+collision_mask = 16
+
+[node name="AttackCollision" type="CollisionShape2D" parent="AttackZone" unique_id=1194156613]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_rax23")
+debug_color = Color(0.62352943, 0.1764706, 0.18039216, 0.41960785)
+
+[node name="DetectionZone" type="Area2D" parent="." unique_id=1264749039]
+collision_layer = 0
+collision_mask = 16
+
+[node name="DetectionCollision" type="CollisionShape2D" parent="DetectionZone" unique_id=750900155]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_w3b1i")
+debug_color = Color(0.49803922, 0.5411765, 0.5803922, 0.41960785)

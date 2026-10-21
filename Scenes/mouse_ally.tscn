@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://dfu0bs7lyau0g"]
+
+[ext_resource type="Script" uid="uid://cqpde2f5ehm28" path="res://Scripts/mouse_ally.gd" id="1_234de"]
+[ext_resource type="Shader" uid="uid://c01wk2vrk00nt" path="res://Scripts/jitter_free_pixel_art.gdshader" id="2_kr6sx"]
+[ext_resource type="Texture2D" uid="uid://d2tpy6pahcu2m" path="res://Sprites/MouseV2-Sheet.png" id="3_kr6sx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l70en"]
+shader = ExtResource("2_kr6sx")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l70en"]
+atlas = ExtResource("3_kr6sx")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3qug"]
+atlas = ExtResource("3_kr6sx")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_726fc"]
+atlas = ExtResource("3_kr6sx")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kce0y"]
+atlas = ExtResource("3_kr6sx")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rrsm"]
+atlas = ExtResource("3_kr6sx")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_234de"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l70en")
+}],
+"loop": 1,
+"name": &"mouse_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3qug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_726fc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kce0y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rrsm")
+}],
+"loop": 1,
+"name": &"mouse_walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kr6sx"]
+radius = 9.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_234de"]
+radius = 5.0
+height = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yf5fn"]
+radius = 23.505318
+
+[node name="MouseAlly" type="CharacterBody2D" unique_id=98807571 groups=["rodent"]]
+scale = Vector2(2, 2)
+collision_layer = 4
+script = ExtResource("1_234de")
+
+[node name="MouseSprite" type="AnimatedSprite2D" parent="." unique_id=1364264023]
+material = SubResource("ShaderMaterial_l70en")
+position = Vector2(0, -15)
+sprite_frames = SubResource("SpriteFrames_234de")
+animation = &"mouse_walk"
+
+[node name="MouseCollection" type="Area2D" parent="." unique_id=124529181 groups=["rodent_collection"]]
+collision_layer = 4
+collision_mask = 8
+
+[node name="MouseCollectionCollision" type="CollisionShape2D" parent="MouseCollection" unique_id=1471973086]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_kr6sx")
+debug_color = Color(0.79042894, 0.60994685, 1.540184e-06, 0.41960785)
+
+[node name="MouseHitbox" type="CollisionShape2D" parent="." unique_id=397719234]
+position = Vector2(0, -5)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_234de")
+
+[node name="WanderTimer" type="Timer" parent="." unique_id=832785890]
+one_shot = true
+autostart = true
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=260045414]
+
+[node name="AttackZone" type="Area2D" parent="." unique_id=54106835]
+collision_layer = 0
+collision_mask = 16
+
+[node name="AttackCollision" type="CollisionShape2D" parent="AttackZone" unique_id=333982249]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_g4v7s")
+debug_color = Color(0.6238764, 0.17507553, 0.1786362, 0.41960785)
+
+[node name="DetectionZone" type="Area2D" parent="." unique_id=1708173423]
+collision_layer = 0
+collision_mask = 16
+
+[node name="DetectionCollision" type="CollisionShape2D" parent="DetectionZone" unique_id=1473203314]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_yf5fn")
+debug_color = Color(0.49831098, 0.54294014, 0.58055234, 0.41960785)

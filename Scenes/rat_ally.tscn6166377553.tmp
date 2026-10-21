@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://oevdyh4tcn72"]
+
+[ext_resource type="Script" uid="uid://c6vr32ea105bb" path="res://Scripts/rat_ally.gd" id="1_q5x1f"]
+[ext_resource type="Texture2D" uid="uid://bvi53xj8uma8d" path="res://Sprites/Rat-Sheet.png" id="1_uxb8c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q5x1f"]
+atlas = ExtResource("1_uxb8c")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_plt7x"]
+atlas = ExtResource("1_uxb8c")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rax23"]
+atlas = ExtResource("1_uxb8c")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3b1i"]
+atlas = ExtResource("1_uxb8c")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bnok"]
+atlas = ExtResource("1_uxb8c")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e7x74"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q5x1f")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_plt7x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rax23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3b1i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bnok")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_plt7x"]
+radius = 26.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rax23"]
+height = 52.0
+
+[node name="rat_ally" type="CharacterBody2D" unique_id=1529855859]
+script = ExtResource("1_q5x1f")
+
+[node name="RatSprite" type="AnimatedSprite2D" parent="." unique_id=835444931]
+texture_filter = 1
+position = Vector2(0, -32)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_e7x74")
+animation = &"walk"
+
+[node name="RatCollection" type="Area2D" parent="." unique_id=903137602 groups=["rodent"]]
+
+[node name="RatHitboxCollision" type="CollisionShape2D" parent="RatCollection" unique_id=1086057705 groups=["rodent"]]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_plt7x")
+
+[node name="RatHitbox2" type="CollisionShape2D" parent="." unique_id=2122256479]
+position = Vector2(0, -10)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_rax23")
+
+[node name="WanderTimer" type="Timer" parent="." unique_id=1078348073]
+one_shot = true
+autostart = true

@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://b0tb6qauq57ws"]
+
+[ext_resource type="Script" uid="uid://litbuh68g1be" path="res://Scripts/tieronefood.gd" id="1_qwvs0"]
+[ext_resource type="Shader" uid="uid://c01wk2vrk00nt" path="res://Scripts/jitter_free_pixel_art.gdshader" id="2_5ihno"]
+[ext_resource type="Texture2D" uid="uid://c51u3ntjijirc" path="res://Sprites/Sunflower-Seed-Sheet.png" id="2_yewg8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hsph1"]
+shader = ExtResource("2_5ihno")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4soef"]
+atlas = ExtResource("2_yewg8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vv316"]
+atlas = ExtResource("2_yewg8")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrft2"]
+atlas = ExtResource("2_yewg8")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pd77c"]
+atlas = ExtResource("2_yewg8")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2m1f6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4soef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vv316")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrft2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pd77c")
+}],
+"loop": true,
+"name": &"seeds",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_njklb"]
+radius = 7.0
+height = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yewg8"]
+radius = 71.6118
+
+[node name="sunflowerseeds" type="Area2D" unique_id=1773203661 groups=["food"]]
+scale = Vector2(2, 2)
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_qwvs0")
+
+[node name="SunflowerSprite" type="AnimatedSprite2D" parent="." unique_id=75692849]
+material = SubResource("ShaderMaterial_hsph1")
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_2m1f6")
+animation = &"seeds"
+frame = 2
+frame_progress = 0.876197
+
+[node name="SunflowerCollision" type="CollisionShape2D" parent="." unique_id=1252842920]
+position = Vector2(-1, -15)
+shape = SubResource("CapsuleShape2D_njklb")
+
+[node name="MagnetArea" type="Area2D" parent="." unique_id=592797655]
+position = Vector2(0, -19)
+collision_layer = 0
+collision_mask = 4
+
+[node name="MagnetCollision" type="CollisionShape2D" parent="MagnetArea" unique_id=2101221071]
+position = Vector2(-1, 4)
+shape = SubResource("CircleShape2D_yewg8")
+debug_color = Color(0.9999996, 0.9690699, 0.61743635, 0.41960785)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

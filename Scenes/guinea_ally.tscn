@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://qqddqsqy1p38"]
+
+[ext_resource type="Script" uid="uid://33vga1t7te6n" path="res://Scripts/guinea_ally.gd" id="1_0ucvw"]
+[ext_resource type="Texture2D" uid="uid://dih26bgpnw036" path="res://Sprites/GuineaPigV2-Sheet.png" id="2_0ucvw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d65rw"]
+atlas = ExtResource("2_0ucvw")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mc85a"]
+atlas = ExtResource("2_0ucvw")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r0rke"]
+atlas = ExtResource("2_0ucvw")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80fu1"]
+atlas = ExtResource("2_0ucvw")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdbat"]
+atlas = ExtResource("2_0ucvw")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1xcoo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d65rw")
+}],
+"loop": 1,
+"name": &"guinea_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_mc85a")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_r0rke")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_80fu1")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_vdbat")
+}],
+"loop": 1,
+"name": &"guinea_walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ut7h"]
+radius = 12.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0ucvw"]
+radius = 7.0
+height = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0ucvw"]
+radius = 18.006943
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d65rw"]
+radius = 28.0
+
+[node name="guinea_ally" type="CharacterBody2D" unique_id=1319556822 groups=["rodent"]]
+scale = Vector2(2, 2)
+collision_layer = 4
+script = ExtResource("1_0ucvw")
+
+[node name="GuineaSprite" type="AnimatedSprite2D" parent="." unique_id=1418773262]
+texture_filter = 1
+position = Vector2(0, -15)
+sprite_frames = SubResource("SpriteFrames_1xcoo")
+animation = &"guinea_idle"
+
+[node name="GuineaCollection" type="Area2D" parent="." unique_id=223333436 groups=["rodent_collection"]]
+collision_layer = 4
+collision_mask = 8
+
+[node name="GuineaCollectionCollision" type="CollisionShape2D" parent="GuineaCollection" unique_id=876864210]
+position = Vector2(0, -7)
+shape = SubResource("CircleShape2D_7ut7h")
+debug_color = Color(0.7921569, 0.6117647, 0, 0.41960785)
+
+[node name="GuineaHitbox" type="CollisionShape2D" parent="." unique_id=1780251033]
+position = Vector2(0, -7)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_0ucvw")
+
+[node name="WanderTimer" type="Timer" parent="." unique_id=1513200333]
+one_shot = true
+autostart = true
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=1053005071]
+
+[node name="AttackZone" type="Area2D" parent="." unique_id=1464177978]
+collision_layer = 0
+collision_mask = 16
+
+[node name="AttackCollision" type="CollisionShape2D" parent="AttackZone" unique_id=731200673]
+position = Vector2(0, -7)
+shape = SubResource("CircleShape2D_0ucvw")
+debug_color = Color(0.62352943, 0.1764706, 0.18039216, 0.41960785)
+
+[node name="DetectionZone" type="Area2D" parent="." unique_id=1403880636]
+collision_layer = 0
+collision_mask = 16
+
+[node name="DetectionCollision" type="CollisionShape2D" parent="DetectionZone" unique_id=581163296]
+position = Vector2(0, -7)
+shape = SubResource("CircleShape2D_d65rw")
+debug_color = Color(0.49803922, 0.5411765, 0.5803922, 0.41960785)

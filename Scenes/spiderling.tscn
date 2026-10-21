@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://bwlojxyf2ewtb"]
+
+[ext_resource type="Script" uid="uid://dcqp22pt68fxi" path="res://Scripts/spiderling.gd" id="1_0coqg"]
+[ext_resource type="Shader" uid="uid://c01wk2vrk00nt" path="res://Scripts/jitter_free_pixel_art.gdshader" id="1_xicme"]
+[ext_resource type="Texture2D" uid="uid://c07kq8jtabfgm" path="res://Sprites/SpiderlingV2-Sheet.png" id="2_0coqg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_87r6u"]
+shader = ExtResource("1_xicme")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjwo5"]
+atlas = ExtResource("2_0coqg")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6qu4"]
+atlas = ExtResource("2_0coqg")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8c4h"]
+atlas = ExtResource("2_0coqg")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62kyw"]
+atlas = ExtResource("2_0coqg")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvkam"]
+atlas = ExtResource("2_0coqg")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwngh"]
+atlas = ExtResource("2_0coqg")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swf2q"]
+atlas = ExtResource("2_0coqg")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uy3qo"]
+atlas = ExtResource("2_0coqg")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vc0vr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pjwo5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6qu4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8c4h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62kyw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvkam")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwngh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swf2q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uy3qo")
+}],
+"loop": 1,
+"name": &"spider_walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xicme"]
+radius = 8.5
+height = 25.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xicme"]
+radius = 14.0
+
+[node name="spiderling" type="CharacterBody2D" unique_id=193736746 groups=["enemy"]]
+scale = Vector2(2, 2)
+collision_layer = 16
+script = ExtResource("1_0coqg")
+
+[node name="SpiderlingSprite" type="AnimatedSprite2D" parent="." unique_id=147804267]
+material = SubResource("ShaderMaterial_87r6u")
+sprite_frames = SubResource("SpriteFrames_vc0vr")
+animation = &"spider_walk"
+frame_progress = 0.50727004
+
+[node name="AttackZone" type="Area2D" parent="." unique_id=108378240]
+
+[node name="AttackCollision" type="CollisionShape2D" parent="AttackZone" unique_id=1477384265]
+position = Vector2(0, 8.5)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_xicme")
+
+[node name="SpiderlingHitbox" type="CollisionShape2D" parent="." unique_id=1505584893]
+position = Vector2(0, 8.5)
+shape = SubResource("CircleShape2D_xicme")
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=1008697400]
+wait_time = 1.5

@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://42skyx4w2uoi"]
+
+[ext_resource type="Script" uid="uid://litbuh68g1be" path="res://Scripts/tieronefood.gd" id="1_d1hax"]
+[ext_resource type="Texture2D" uid="uid://b8wpmet4qkblq" path="res://Sprites/Berries-Sheet.png" id="2_gmmae"]
+[ext_resource type="Shader" uid="uid://c01wk2vrk00nt" path="res://Scripts/jitter_free_pixel_art.gdshader" id="2_ii0t7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nrs11"]
+shader = ExtResource("2_ii0t7")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwsgd"]
+atlas = ExtResource("2_gmmae")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4lr1k"]
+atlas = ExtResource("2_gmmae")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6oxnp"]
+atlas = ExtResource("2_gmmae")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oa3si"]
+atlas = ExtResource("2_gmmae")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cj6xu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwsgd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4lr1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6oxnp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oa3si")
+}],
+"loop": true,
+"name": &"berries",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_stkqy"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gmmae"]
+radius = 71.6118
+
+[node name="Berry" type="Area2D" unique_id=221563652 groups=["food"]]
+scale = Vector2(2, 2)
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_d1hax")
+
+[node name="BerrySprite" type="AnimatedSprite2D" parent="." unique_id=1833313482]
+material = SubResource("ShaderMaterial_nrs11")
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_cj6xu")
+animation = &"berries"
+frame = 2
+frame_progress = 0.32528308
+
+[node name="BerryCollision" type="CollisionShape2D" parent="." unique_id=1975316964]
+position = Vector2(0, -19)
+shape = SubResource("CircleShape2D_stkqy")
+
+[node name="MagnetArea" type="Area2D" parent="." unique_id=975581124]
+position = Vector2(0, -19)
+collision_layer = 0
+collision_mask = 4
+
+[node name="MagnetCollision" type="CollisionShape2D" parent="MagnetArea" unique_id=2005635372]
+shape = SubResource("CircleShape2D_gmmae")
+debug_color = Color(0.9999996, 0.9690699, 0.61743635, 0.41960785)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

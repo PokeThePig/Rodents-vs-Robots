@@ -1,0 +1,175 @@
+[gd_scene format=3 uid="uid://br8dvqsgv3cqr"]
+
+[ext_resource type="Texture2D" uid="uid://dctt73rclb07v" path="res://Sprites/SquirrelV1-Sheet.png" id="1_3y0ms"]
+[ext_resource type="Script" uid="uid://d3kbliv3wbyqi" path="res://Scripts/squirrel_ally.gd" id="1_yhpbk"]
+[ext_resource type="Texture2D" uid="uid://fmglhgjofc43" path="res://Sprites/SquirrelV2-Sheet.png" id="2_46cjg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yoskc"]
+atlas = ExtResource("2_46cjg")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhpbk"]
+atlas = ExtResource("1_3y0ms")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6o3c3"]
+atlas = ExtResource("2_46cjg")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pepuu"]
+atlas = ExtResource("2_46cjg")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5i3g1"]
+atlas = ExtResource("2_46cjg")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7nxv"]
+atlas = ExtResource("2_46cjg")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_or60n"]
+atlas = ExtResource("2_46cjg")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ntqch"]
+atlas = ExtResource("1_3y0ms")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wkkbs"]
+atlas = ExtResource("1_3y0ms")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82ju2"]
+atlas = ExtResource("1_3y0ms")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nt78n"]
+atlas = ExtResource("1_3y0ms")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwmwc"]
+atlas = ExtResource("1_3y0ms")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ntqch"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yoskc")
+}],
+"loop": 1,
+"name": &"squirrel_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhpbk")
+}],
+"loop": 1,
+"name": &"squirrel_idle_og",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_6o3c3")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_pepuu")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_5i3g1")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_r7nxv")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_or60n")
+}],
+"loop": 1,
+"name": &"squirrel_walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.6,
+"texture": SubResource("AtlasTexture_ntqch")
+}, {
+"duration": 0.6,
+"texture": SubResource("AtlasTexture_wkkbs")
+}, {
+"duration": 0.6,
+"texture": SubResource("AtlasTexture_82ju2")
+}, {
+"duration": 0.6,
+"texture": SubResource("AtlasTexture_nt78n")
+}, {
+"duration": 0.6,
+"texture": SubResource("AtlasTexture_uwmwc")
+}],
+"loop": 1,
+"name": &"squirrel_walk_og",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wkkbs"]
+radius = 12.5
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_82ju2"]
+radius = 8.0
+height = 25.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_46cjg"]
+radius = 18.56071
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yoskc"]
+radius = 23.505318
+
+[node name="squirrel_ally" type="CharacterBody2D" unique_id=1105600320 groups=["rodent"]]
+scale = Vector2(2, 2)
+collision_layer = 4
+script = ExtResource("1_yhpbk")
+
+[node name="SquirrelSprite" type="AnimatedSprite2D" parent="." unique_id=1209430289]
+texture_filter = 1
+position = Vector2(0, -15)
+sprite_frames = SubResource("SpriteFrames_ntqch")
+animation = &"squirrel_idle"
+frame_progress = 0.2943993
+
+[node name="SquirrelCollection" type="Area2D" parent="." unique_id=1379517408 groups=["rodent_collection"]]
+collision_layer = 4
+collision_mask = 8
+
+[node name="SquirrelCollectionCollision" type="CollisionShape2D" parent="SquirrelCollection" unique_id=553195835]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_wkkbs")
+debug_color = Color(0.7921569, 0.6117647, 0, 0.41960785)
+
+[node name="SquirrelHitbox" type="CollisionShape2D" parent="." unique_id=758699345]
+position = Vector2(0, -8)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_82ju2")
+
+[node name="WanderTimer" type="Timer" parent="." unique_id=882250387]
+one_shot = true
+autostart = true
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=541379417]
+
+[node name="AttackZone" type="Area2D" parent="." unique_id=1366601702]
+collision_layer = 0
+collision_mask = 16
+
+[node name="AttackCollision" type="CollisionShape2D" parent="AttackZone" unique_id=1569485922]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_46cjg")
+debug_color = Color(0.62352943, 0.1764706, 0.18039216, 0.41960785)
+
+[node name="DetectionZone" type="Area2D" parent="." unique_id=561763676]
+collision_layer = 0
+collision_mask = 16
+
+[node name="DetectionCollision" type="CollisionShape2D" parent="DetectionZone" unique_id=2106465291]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_yoskc")
+debug_color = Color(0.49803922, 0.5411765, 0.5803922, 0.41960785)

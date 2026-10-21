@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://d0pvslx01l82n"]
+
+[ext_resource type="Script" uid="uid://ciopxqodps25u" path="res://Scripts/sphere.gd" id="1_nhj4o"]
+[ext_resource type="Shader" uid="uid://c01wk2vrk00nt" path="res://Scripts/jitter_free_pixel_art.gdshader" id="1_vm764"]
+[ext_resource type="Texture2D" uid="uid://brloppfio56ad" path="res://Sprites/Sphere-Enemy-V2-Sheet.png" id="3_nhj4o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r6oi6"]
+shader = ExtResource("1_vm764")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6oi6"]
+atlas = ExtResource("3_nhj4o")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0w42"]
+atlas = ExtResource("3_nhj4o")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8lsmy"]
+atlas = ExtResource("3_nhj4o")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7phdn"]
+atlas = ExtResource("3_nhj4o")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c0w42"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6oi6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0w42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8lsmy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7phdn")
+}],
+"loop": 1,
+"name": &"sphere_walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8lsmy"]
+radius = 11.0
+height = 25.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7phdn"]
+radius = 17.5
+
+[node name="sphere" type="CharacterBody2D" unique_id=1795117074 groups=["enemy"]]
+scale = Vector2(2, 2)
+collision_layer = 16
+script = ExtResource("1_nhj4o")
+
+[node name="SphereSprite" type="AnimatedSprite2D" parent="." unique_id=1596285185]
+material = SubResource("ShaderMaterial_r6oi6")
+sprite_frames = SubResource("SpriteFrames_c0w42")
+animation = &"sphere_walk"
+frame = 3
+frame_progress = 0.6334546
+
+[node name="AttackZone" type="Area2D" parent="." unique_id=1047350565]
+
+[node name="AttackCollision" type="CollisionShape2D" parent="AttackZone" unique_id=2056324676]
+position = Vector2(0, 4)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_8lsmy")
+
+[node name="SphereHitbox" type="CollisionShape2D" parent="." unique_id=183371815]
+position = Vector2(0, 4.5)
+shape = SubResource("CircleShape2D_7phdn")
+
+[node name="AttackTimer" type="Timer" parent="." unique_id=412386924]
